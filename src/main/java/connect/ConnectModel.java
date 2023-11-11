@@ -21,13 +21,18 @@ public class ConnectModel {
     public String displayBoard() {
         return
         """
+        to play with default board settings
         
         """;
     }
-    private boolean addToBoard(int position, int player, int[][] table) {
+
+    public boolean addToBoard(int position, int playerCard, int[][] table) {
+        if(position > table[0].length || position < 1) return false;
+
         for (int i = table.length-1; i > 0; --i) {
-            if ((table[i][position]) < 0){
-                table[i][position] = player;
+            if ((table[i][position--]) == 0){
+                table[i][position] = playerCard;
+             //   printTable(table);
                 return true;
             }
         }
@@ -39,7 +44,11 @@ public class ConnectModel {
     public static void main(String[] args) {
         ConnectModel connectModel = new ConnectModel();
 
-        connectModel.printTable(connectModel.createBoard(7, 6));
+        int[][] arr = connectModel.createBoard(7, 6);
+
+        connectModel.addToBoard(9, 5, arr);
+
+        connectModel.printTable(arr);
     }
 
 
