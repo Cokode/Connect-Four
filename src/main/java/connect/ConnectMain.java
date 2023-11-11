@@ -9,7 +9,7 @@ public class ConnectMain {
       return "";
 
     return position;
-  }git 
+  }
 
   private boolean checkForWinnerVertical(int[][] arr, int playCard) {
     int sum = 0;
