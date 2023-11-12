@@ -1,6 +1,7 @@
 package connect;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class ConnectModel {
 
@@ -50,7 +51,7 @@ public class ConnectModel {
     while (i >= 0) {
       int[] temp = arr[i];
 
-      if((temp[index] == playCard) && sum != (playCard * 4)) {
+      if(index != arr[0].length && ((temp[index] == playCard) && sum != (playCard * 4))) {
         sum += temp[index];
         --i;
       } else if (sum == (playCard * 4)){
@@ -77,10 +78,13 @@ public class ConnectModel {
 
     int[][] arr = connectModel.createBoard(7, 6);
     connectModel.printTable(arr);
+   // int random2 = new Random().nextInt(1, 7);
 
     int i = 0;
     while(i < 5) {
-      connectModel.addToBoard(4, 5, arr);
+      int random = new Random().nextInt(7);
+      if (random == 0) random++;
+      connectModel.addToBoard(random, 5, arr);
       ++i;
     }
 
@@ -88,7 +92,8 @@ public class ConnectModel {
       System.out.println("\n\n");
       System.out.println("\t Hurray! we got a winner: player 5 \n");
       connectModel.printTable(arr);
-    }
+    } else
+      System.out.println("You failed! ");
   }
 
 
