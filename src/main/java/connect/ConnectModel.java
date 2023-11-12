@@ -1,5 +1,7 @@
 package connect;
 
+import org.w3c.dom.ls.LSOutput;
+
 import java.util.Arrays;
 import java.util.Random;
 
@@ -58,12 +60,44 @@ public class ConnectModel {
         return true;
       } else {
         sum = 0;
-        --i;
-        if (i < 3 && column != 0) {
+
+        if (i < 3 && column != 0) { //remove this if statement if it fails
           i = arr.length-1;
           column--;
           index++;
         }
+        --i;
+//        if (i < 3 && column != 0) {
+//          i = arr.length-1;
+//          column--;
+//          index++;
+//        }
+      }
+    }
+
+    return sum == playCard*4;
+  }
+
+  private boolean checkForWinnerHorizontally(int[][] arr, int playCard) {
+    int sum = 0;
+    int i =  arr.length-1, row = arr[0].length;
+    int index = 0;
+
+    while (i >= 0) {
+      int[] temp = arr[i];
+
+      if(index != arr[0].length && ((temp[index] == playCard) && sum != (playCard * 4))) {
+        sum += temp[index];
+        ++index;
+      } else if (sum == (playCard * 4)){
+        return true;
+      } else {
+        sum = 0;
+        if (index == temp.length - 3) {
+          --i;
+          index = 0;
+        }
+        ++index;
       }
     }
 
@@ -77,24 +111,36 @@ public class ConnectModel {
     ConnectModel connectModel = new ConnectModel();
 
     int[][] arr = connectModel.createBoard(7, 6);
-    connectModel.printTable(arr);
+    int[][] arr2 = {
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {5, 0, 0, 0, 0, 0, 0},
+            {5, 0, 5, 5, 0, 5, 0},
+    };
+
+    connectModel.printTable(arr2);
    // int random2 = new Random().nextInt(1, 7);
 
-    int i = 0;
-    while(i < 5) {
-      int random = new Random().nextInt(7);
-      if (random == 0) random++;
-      connectModel.addToBoard(random, 5, arr);
-      ++i;
-    }
+//    int i = 0;
+//    while(i < 5) {
+//      int random = new Random().nextInt(7);
+//      if (random == 0) random++;
+//      connectModel.addToBoard(random, 5, arr2);
+//      ++i;
+//    }
 
-    if(connectModel.checkForWinnerVertical(arr, 5)){
+    if(connectModel.checkForWinnerHorizontally(arr2, 5)){
       System.out.println("\n\n");
       System.out.println("\t Hurray! we got a winner: player 5 \n");
-      connectModel.printTable(arr);
+      connectModel.printTable(arr2);
     } else
       System.out.println("You failed! ");
+
+    System.out.println(Arrays.deepToString(arr2));
   }
+
 
 
 }
