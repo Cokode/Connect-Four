@@ -104,12 +104,8 @@ public class GameBoard implements  BoardLogicInterface{
     int i = 3, index = 0, sum = 0;
 
     while(i < boardTable.length-1) {
-      sum += boardTable[i][++index] == playerCard ? playerCard : (sum * -1);
-//      if (boardTable[i][index] == playerCard) {
-//        ++i;
-//        ++index;
-//        sum += playerCard;
-//      }
+      sum += (boardTable[i][index++] == playerCard) ?
+              playerCard : (sum * -1);
     }
 
     return sum == (playerCard*4);
