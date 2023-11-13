@@ -113,10 +113,24 @@ public class GameBoard implements  BoardLogicInterface{
     return sum == (playerCard*4);
   }
 
+  @Override
+  public boolean checkGridIsFilled() {
+    int[] grid = boardTable[0];
+    for (int box : grid) {
+      if(box == 0) return false;
+    }
+    return true;
+  }
+
   public void printBoard() {
+    System.out.print("""
+                  A        B        C        D        E        F        G\s
+
+            """);
+
     for (int[] ints : boardTable) {
       for (int anInt : ints) {
-        System.out.print("   [ "+anInt+" ]");
+        System.out.print("   |  "+anInt+" |");
       }
       System.out.println("\n");
     }

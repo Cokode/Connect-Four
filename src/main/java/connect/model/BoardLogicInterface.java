@@ -7,5 +7,6 @@ public interface BoardLogicInterface {
   boolean checkForWinnerVertical( int playCard);
   boolean checkForWinnerLeft(int playerCard);
   boolean checkForWinnerHorizontally(int playCard);
+  boolean checkGridIsFilled();
 
 }

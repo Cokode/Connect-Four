@@ -1,78 +1,51 @@
 package connect;
 
 
-import java.util.Scanner;
-
-import static java.lang.System.in;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
 
-  static GameBoard gameBoard;
-  static Scanner scanner = new Scanner(in);
+   private static GameBoard gameBoard;
+   private List<Player> players;
 
-private static String gameIntro () {
-
-  return """
-        Welcome to CONNECT-FOUR game
-        
-  Objective :
-  -->   The goal of each player is to connect
-        four (4) of their own discs(number) in\040
-        a row, either horizontally, vertically,
-        or diagonally.
-  """;
-
-}
-
-private static String startGme () {
-
-  return """
-  -->   Only two(2) players can play this game at a time
-        You can play with a human, or with a machine.
-        
-        Press ( 1 ) to play with another human.
-        Press ( 2 ) to play with a machine.
-  """;
-}
-
-private static int playerSetting() {
-  return scanner.nextInt();
-}
-
-private static int playerSelection(int selection) {
-
-  if(selection == 2) {
-    System.out.println("great Choice! you will play with a machine\n");
-  } else if (selection == 1) {
-    System.out.println("You will play with another human\n");
-  } else {
-    System.out.println("Invalid selection.\n");
-    System.out.println(startGme());
-  }
-  return selection;
-}
+   public Controller() {
+     players = new ArrayList<>(2);
+   }
 
   public static void loadGame() {
-  System.out.println("Game loading...\n");
-  gameBoard = new GameBoard();
+    System.out.println("Game loading...\n");
+    gameBoard = new GameBoard();
+  }
+
+public void loadPlayers(Player player) {
+    players.add(player);
 }
 
+  public GameBoard getGameBoard() {
+    return gameBoard;
+  }
 
 
-
+  public List<Player> getPlayers() {
+    return players;
+  }
 
 
   public static void main(String[] args) {
 
   // text for methods
-    System.out.println(gameIntro());
-    System.out.println(startGme());
-    int ok = playerSetting();
+//    System.out.println(gameIntro());
+//    System.out.println(startGme());
+//    int ok = playerSetting();
 
-    int start = playerSelection(ok);
+    //int start = playerSelection(ok);
     loadGame();
 
     gameBoard.printBoard();
+//    gameBoard.addToBoard(2, 5);
+//    System.out.println();
+//    gameBoard.printBoard();
 
 
 
@@ -87,7 +60,7 @@ private static int playerSelection(int selection) {
 
     // for test purpose only
     GameBoard connectModel = new GameBoard(arr2);
-    connectModel.printBoard();
+    //connectModel.printBoard();
 
     if(connectModel.checkForWinnerHorizontally(5)){
       System.out.println("\n\n");
