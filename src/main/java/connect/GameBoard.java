@@ -5,13 +5,23 @@ import java.util.Arrays;
 public class GameBoard implements  BoardLogicInterface{
   private int row;
   private int column;
-  private int[][] boardTable;
+  private final int[][] boardTable;
 
-  // can be integrated as class property
+
+  /**
+   * In case of custom table, but this game will only
+   * be played with default connect four table size and dimensions.
+   * @param row This indicates number of rows for the boardGame
+   * @param column This indicates number of columns for the boardGame
+   */
   private GameBoard (int row, int column) {
     boardTable = new int[row][column];
   }
 
+  /**
+   * This project will use this contractor
+   * as default and only possible boardgame size.
+   */
   public GameBoard () {
     boardTable = new int[6][7];
   }

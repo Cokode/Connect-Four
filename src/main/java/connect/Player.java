@@ -2,6 +2,7 @@ package connect;
 
 public class Player {
   private final String name;
+  private int playerCard;
   private int playerScore;
   private boolean isHuman;
   private boolean isWinner;
@@ -11,6 +12,7 @@ public class Player {
     this.playerScore = getPlayerScore();
     this.isHuman = true;
     this.isWinner = false;
+    this.playerCard = getPlayerCard();
   }
 
   /**
@@ -35,12 +37,16 @@ public class Player {
     this.playerScore += Math.max(playerScore, 0);
   }
 
-  public boolean isHuman() {
-    return isHuman;
+  public int getPlayerCard() {
+    return playerCard;
   }
 
-  public void setHuman(boolean human) {
-    isHuman = human;
+  public void setPlayerCard(int playerCard) {
+   if(0 < playerCard)  this.playerCard = playerCard;
+  }
+
+  public boolean isHuman() {
+    return isHuman;
   }
 
   public boolean isWinner() {
