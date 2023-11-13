@@ -7,9 +7,19 @@ public class Player {
 
   private boolean isWinner;
 
-  public Player (String name, int playerScore) {
+  public Player (String name) {
     this.name = name;
-    this.playerScore = playerScore;
+    this.playerScore = getPlayerScore();
+    this.isHuman = true;
+  }
+
+  /**
+   * Default constructor for a Computer as Player
+   */
+  public Player () {
+    this.name = "Computer";
+    this.playerScore = getPlayerScore();
+    this.isHuman = false;
   }
 
   public String getName() {
@@ -28,9 +38,6 @@ public class Player {
     return isHuman;
   }
 
-  public void setHuman(boolean human) {
-    isHuman = human;
-  }
 
   @Override
   public String toString() {

@@ -1,10 +1,8 @@
 package connect;
 
-import connect.model.BoardLogicInterface;
-
-import java.util.Arrays;
-
 public class Controller {
+
+
 
   public static void main(String[] args) {
 
@@ -18,8 +16,7 @@ public class Controller {
     };
 
     // for test purpose only
-    GameBoard connectModel = new GameBoard();
-
+    GameBoard connectModel = new GameBoard(arr2);
     connectModel.printBoard();
 
     if(connectModel.checkForWinnerHorizontally(5)){
@@ -28,8 +25,6 @@ public class Controller {
       connectModel.printBoard();
     } else
       System.out.println("You failed! ");
-
-    System.out.println(Arrays.deepToString(arr2));
   }
 
 
