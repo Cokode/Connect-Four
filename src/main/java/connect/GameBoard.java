@@ -12,11 +12,13 @@ public class GameBoard implements  BoardLogicInterface{
     boardTable = new int[row][column];
   }
 
+  public GameBoard () {
+    boardTable = new int[6][7];
+  }
+
   public GameBoard(int[][] arr) {
     this.boardTable = arr;
   }
-
-  public GameBoard(){};
 
   @Override
   public boolean addToBoard(int position, int playerCard) {
