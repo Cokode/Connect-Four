@@ -1,16 +1,14 @@
 package connect;
-
 import connect.model.BoardLogicInterface;
-
 import java.util.Arrays;
 
-public class GameBoard implements BoardLogicInterface {
+public class GameBoard implements  BoardLogicInterface{
   private int row;
   private int column;
   private int[][] boardTable;
 
   // can be integrated as class property
-  public GameBoard (int row, int column) {
+  private GameBoard (int row, int column) {
     boardTable = new int[row][column];
   }
 
@@ -18,32 +16,17 @@ public class GameBoard implements BoardLogicInterface {
     this.boardTable = arr;
   }
 
-  public void printBoard() {
-    for (int[] ints : boardTable) {
-      for (int anInt : ints) {
-        System.out.print("   [ "+anInt+" ]");
-      }
-      System.out.println("\n");
-    }
-  }
+  public GameBoard(){};
 
-  public void displayBoard() {
-
-  }
-  /**
-   * @return
-   */
   @Override
   public boolean addToBoard(int position, int playerCard) {
-    if(position > boardTable[0].length || position < 1) return false;
-
+    // ADD filter condition to control method
     for (int i = boardTable.length-1; i > 0; --i) {
-      int value = (boardTable[i][--position]);
-      if (value == 0){
+      if (boardTable[i][--position] == 0) {
         boardTable[i][position] = playerCard;
-        //   printTable(table);
         return true;
-      }
+      } else
+        --i;
       ++position;
     }
 
@@ -89,23 +72,8 @@ public class GameBoard implements BoardLogicInterface {
     return sum == playCard*4;
   }
 
-
-  public boolean checkForWinnerLeft(int playerCard) {
-    int i = 3, index = 0, sum = 0;
-
-    while(i < boardTable.length-1) {
-      sum += boardTable[i][++index] == playerCard ? playerCard : (sum * -1);
-//      if (boardTable[i][index] == playerCard) {
-//        ++i;
-//        ++index;
-//        sum += playerCard;
-//      }
-    }
-
-    return sum == (playerCard*4);
-  }
-
-  private boolean checkForWinnerHorizontally(int playCard) {
+  @Override
+  public boolean checkForWinnerHorizontally(int playCard) {
     int sum = 0;
     int i =  boardTable.length-1, row = boardTable[0].length;
     int index = 0;
@@ -131,31 +99,29 @@ public class GameBoard implements BoardLogicInterface {
     return sum == playCard*4;
   }
 
+  @Override
+  public boolean checkForWinnerLeft(int playerCard) {
+    int i = 3, index = 0, sum = 0;
 
-  public static void main(String[] args) {
+    while(i < boardTable.length-1) {
+      sum += boardTable[i][++index] == playerCard ? playerCard : (sum * -1);
+//      if (boardTable[i][index] == playerCard) {
+//        ++i;
+//        ++index;
+//        sum += playerCard;
+//      }
+    }
 
-    int[][] arr2 = {
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {5, 5, 5, 5, 0, 0, 0},
-            {5, 0, 5, 5, 0, 5, 0},
-    };
+    return sum == (playerCard*4);
+  }
 
-    // for test purpose only
-    GameBoard connectModel = new GameBoard(arr2);
-
-    connectModel.printBoard();
-
-    if(connectModel.checkForWinnerHorizontally(5)){
-      System.out.println("\n\n");
-      System.out.println("\t Hurray! we got a winner: player 5 \n");
-      connectModel.printBoard();
-    } else
-      System.out.println("You failed! ");
-
-    System.out.println(Arrays.deepToString(arr2));
+  public void printBoard() {
+    for (int[] ints : boardTable) {
+      for (int anInt : ints) {
+        System.out.print("   [ "+anInt+" ]");
+      }
+      System.out.println("\n");
+    }
   }
 
 }

@@ -2,9 +2,10 @@ package connect.model;
 
 public interface BoardLogicInterface {
 
-  public void printBoard();
-  public void displayBoard();
-  public boolean addToBoard(int position, int playerCard);
-  public boolean checkForWinnerVertical( int playCard);
+  void printBoard();
+  boolean addToBoard(int position, int playerCard);
+  boolean checkForWinnerVertical( int playCard);
+  boolean checkForWinnerLeft(int playerCard);
+  boolean checkForWinnerHorizontally(int playCard);
 
 }
