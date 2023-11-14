@@ -84,6 +84,25 @@ public class GameBoard implements  BoardLogicInterface{
     return sum == playCard*4;
   }
 
+  public boolean checkWinner(int playerCard) {
+    int i = boardTable.length-1, j = i, index = 0, sum = 0;
+    int value = playerCard * 2;
+
+    while (i >= 0) {
+      sum += boardTable[i][index] == playerCard ? playerCard : (-1) * sum;
+      if (index == j && sum <= value) {
+        ++i;
+        index = 0;
+        sum = 0;
+      }
+
+      if (sum == value * 2) return true;
+      index++;
+    }
+
+    return false;
+  }
+
   @Override
   public boolean checkForWinnerHorizontally(int playCard) {
     int sum = 0;
@@ -93,7 +112,10 @@ public class GameBoard implements  BoardLogicInterface{
     while (i >= 0) {
       int[] temp = boardTable[i];
 
-      if(index != boardTable[0].length && ((temp[index] == playCard) && sum != (playCard * 4))) {
+      if(index != boardTable[0].length &&
+              ((temp[index] == playCard) &&
+                      sum != (playCard * 4)))
+      {
         sum += temp[index];
         ++index;
       } else if (sum == (playCard * 4)){
