@@ -85,19 +85,23 @@ public class GameBoard implements  BoardLogicInterface{
   }
 
   public boolean checkWinner(int playerCard) {
-    int i = boardTable.length-1, j = i, index = 0, sum = 0;
-    int value = playerCard * 2;
+    int sum = 0;
+    int value = playerCard * 4;
 
-    while (i >= 0) {
-      sum += boardTable[i][index] == playerCard ? playerCard : (-1) * sum;
-      if (index == j && sum <= value) {
-        ++i;
-        index = 0;
-        sum = 0;
+    for(int i = boardTable.length-1; i >= 0; --i) {
+      for(int j = 0; j < boardTable[i].length; ++j) {
+        sum += boardTable[i][j] == playerCard ? playerCard : (-1) * sum;
+        if (sum == value * 2) return true;
       }
+    }
 
-      if (sum == value * 2) return true;
-      index++;
+    sum = 0;
+
+    for(int i = 0; i < boardTable[0].length; ++i) {
+      for(int k = boardTable.length-1; k > 0; --k) {
+        sum += boardTable[k][i] == playerCard ? playerCard : (-1) * sum;
+        if (sum == value) return true;
+      }
     }
 
     return false;

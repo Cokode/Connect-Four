@@ -11,10 +11,12 @@ import static java.lang.System.out;
 
 public class connectMain {
 
+  static Scanner scanner = new Scanner(in);
+
   private static String gameIntro () {
 
     return """
-        Welcome to CONNECT-FOUR game
+        \nWelcome to CONNECT-FOUR game
         
   Objective :
   -->   The goal of each player is to connect
@@ -48,17 +50,12 @@ public class connectMain {
     return selection;
   }
 
-  // MAKED TO BE REMOVED
-  public static void playerSettings(List<Player> players, Player player) {
-    assert player != null && players != null;
-    players.add(player);
-  }
-
-  public static void main(String[] args) {
-    Controller controller = new Controller();
-    Scanner scanner = new Scanner(in);
-
-
+  /**
+   * This method takes the controller as parameter
+   * and loads the players into the controller
+   * @param controller controller is received loaded
+   */
+  public static void playerSettings(Controller controller) {
     out.println(gameIntro());
 
     out.println(startGme());
@@ -81,43 +78,38 @@ public class connectMain {
       out.println(word2);
       secondPlayer_name = scanner.nextLine().toUpperCase();
 
-      Player playerOne = new Player(firstPlayer_name);
-      Player playerTwo = new Player(secondPlayer_name);
-
-      controller.loadPlayers(playerOne);
-      controller.loadPlayers(playerTwo);
+      controller.loadPlayers(firstPlayer_name);
+      controller.loadPlayers(secondPlayer_name);
 
     } else {
 
-      Player playerOne = new Player(firstPlayer_name);
-      controller.loadPlayers(playerOne);
-
-      Player computer = new Player();
-      controller.loadPlayers(computer);
+      controller.loadPlayers(firstPlayer_name);
+      controller.loadPlayers(null);
     }
 
-
-
     controller.loadGame();
+  }
+
+  public static void main(String[] args) {
+    Controller controller = new Controller();
+
+
+    playerSettings(controller);
 
     int[][] arr2 = {
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 5, 0, 0, 0},
+            {0, 0, 0, 5, 0, 0, 0},
             {5, 5, 5, 5, 0, 0, 0},
             {5, 0, 5, 5, 0, 5, 0},
     };
 
-    controller.getGameBoard().addToBoard(3,5);
-    boolean hasWinner = controller.getGameBoard().checkForWinnerVertical(5);
+
+    boolean hasWinner = controller.getGameBoard().checkWinner(5);
     controller.getGameBoard().printBoard();
     out.println(hasWinner);
 
-    Player player = new Player("Collins");
-    controller.loadPlayers(player);
-
-    out.println(controller.getPlayers());
     for (Player px : controller.getPlayers()) {
       px.setPlayerScore(5);
       out.println(px);
