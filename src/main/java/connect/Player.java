@@ -42,7 +42,7 @@ public class Player {
   }
 
   public void setPlayerCard(int playerCard) {
-   if(0 < playerCard)  this.playerCard = playerCard;
+   this.playerCard = playerCard;
   }
 
   public boolean isHuman() {

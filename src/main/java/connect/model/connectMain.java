@@ -3,7 +3,6 @@ package connect.model;
 import connect.Controller;
 import connect.Player;
 
-import java.util.List;
 import java.util.Scanner;
 
 import static java.lang.System.in;
@@ -38,16 +37,20 @@ public class connectMain {
   }
 
   private static int playerSelection(int selection) {
+    int select = -1;
 
     if(selection == 2) {
       out.println("great Choice! you will play with a machine\n");
-    } else if (selection == 1) {
+      select = 2;
+    }
+    if (selection == 1) {
       out.println("You will play with another human\n");
+      select = 1;
     } else {
       out.println("Invalid selection.\n");
       out.println(startGme());
     }
-    return selection;
+    return select;
   }
 
   /**
@@ -55,46 +58,77 @@ public class connectMain {
    * and loads the players into the controller
    * @param controller controller is received loaded
    */
-  public static void playerSettings(Controller controller) {
-    out.println(gameIntro());
+  public static void playerSettings
+  (Controller controller, String fName, String sName)
+  {
+    String words3, val;
 
-    out.println(startGme());
+    controller.loadPlayers(fName);
+    controller.loadPlayers(sName);
+    controller.loadGame(); // REMOVE LATER USE DEFAULT TODO
 
-    int playWithWho = playerSelection(scanner.nextInt());
+    val = sName == null? "Computer" : sName.toUpperCase();
+    words3 = fName.toUpperCase() +
+            "  VS  "+ val;
 
-    String firstPlayer_name,
-            secondPlayer_name,
-            words, word2;
-
-    words = "Player 1 Enter Your name: ";
-    word2 = "Player 2 Enter Your name: ";
-
-    out.println(words);
-    firstPlayer_name = scanner.next().toUpperCase();
-    scanner.nextLine();
-
-    if(playWithWho == 1) {
-
-      out.println(word2);
-      secondPlayer_name = scanner.nextLine().toUpperCase();
-
-      controller.loadPlayers(firstPlayer_name);
-      controller.loadPlayers(secondPlayer_name);
-
-    } else {
-
-      controller.loadPlayers(firstPlayer_name);
-      controller.loadPlayers(null);
-    }
-
-    controller.loadGame();
+    out.println("\n"+words3);
   }
 
   public static void main(String[] args) {
     Controller controller = new Controller();
 
+    out.println(gameIntro());
+    out.println(startGme());
 
-    playerSettings(controller);
+    String words, word2, word3,  fName = "",
+            sName = "", warning = "";
+    words = "Player 1 Enter Your name: ";
+    word2 = "Player 2 Enter Your name: ";
+
+    int selection = playerSelection(scanner.nextInt());
+
+    out.println(words);
+    switch (selection) {
+      case 1 -> {
+        //out.println(words); REMOVE THIS LINE TODO
+        fName = scanner.nextLine();
+
+        out.println(word2);
+        sName = scanner.nextLine();
+      }
+      case 2 -> {
+        out.println(words);
+        fName = scanner.nextLine();
+        sName = null;
+      }
+      default -> {
+        out.println(startGme());
+      }
+    }
+
+    int firstCard, secondCard;
+    words = "LOADING... \n\nChoose your card number : ";
+    word3 = "\nnSELECT any number from 1 - 9 (inclusively) as your disc(player card).";
+    warning = "Please only enter valid unique numbers as play card";
+
+    out.println(words);
+    out.println(word3);
+
+    while (true) {
+      firstCard = scanner.nextInt();
+      secondCard = scanner.nextInt();
+
+      if (controller.loadPlayerCard(firstCard, secondCard)){
+        playerSettings(controller, fName, sName);
+        return;
+      } else {
+        out.println(warning);
+        out.println(word3);
+      }
+    }
+
+
+
 
     int[][] arr2 = {
             {0, 0, 0, 0, 0, 0, 0},

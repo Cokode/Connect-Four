@@ -16,7 +16,7 @@ public class Controller {
   public void loadGame() {
     System.out.println("Game loading...\n".toUpperCase()); // remember to load game with default
     // game board
-    // gameBoard = new GameBoard(); REMOVE HIGHLIGHT
+    // gameBoard = new GameBoard(); REMOVE HIGHLIGHT TODO
     int[][] arr2 = {
             {0, 0, 5, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
@@ -42,12 +42,27 @@ public class Controller {
     loadPlayers(new Player(name));
   }
 
+  private void setCard ( int playerCard, int index ) {
+    players.get(index).setPlayerCard(playerCard);
+  }
+
+  public boolean loadPlayerCard(int firstPlayerCard, int secondPlayerCard) {
+     if ((firstPlayerCard >= 1 && firstPlayerCard <= 9) &&
+             (secondPlayerCard >= 1 && secondPlayerCard <= 9) &&
+             (firstPlayerCard != secondPlayerCard)) {
+       setCard(firstPlayerCard, 0);
+       setCard(secondPlayerCard, 1);
+       return true;
+     }
+     return false;
+  }
+
   public GameBoard getGameBoard() {
     return gameBoard;
   }
 
 
-  public List<Player> getPlayers() {
+  private List<Player> getPlayers() {
     return players;
   }
 
