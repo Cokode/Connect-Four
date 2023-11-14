@@ -3,6 +3,7 @@ package connect.model;
 import connect.Controller;
 import connect.Player;
 
+import java.util.Random;
 import java.util.Scanner;
 
 import static java.lang.System.in;
@@ -11,6 +12,7 @@ import static java.lang.System.out;
 public class connectMain {
 
   static Scanner scanner = new Scanner(in);
+  static Random random = new Random();
 
   private static String gameIntro () {
 
@@ -85,7 +87,10 @@ public class connectMain {
     words = "Player 1 Enter Your name: ";
     word2 = "Player 2 Enter Your name: ";
 
-    int selection = playerSelection(scanner.nextInt());
+    int selection = scanner.nextInt();
+    scanner.nextLine();
+
+    playerSelection(selection);
 
     out.println(words);
     switch (selection) {
@@ -107,27 +112,35 @@ public class connectMain {
     }
 
     int firstCard, secondCard;
-    words = "LOADING... \n\nChoose your card number : ";
-    word3 = "\nnSELECT any number from 1 - 9 (inclusively) as your disc(player card).";
+  //   words = "LOADING... \n\nChoose your card number : "; TODO REMOVE
+    word3 = "\nnSELECT any number from 1 - 9 (inclusively) as your disc(player card)";
     warning = "Please only enter valid unique numbers as play card";
 
     out.println(words);
     out.println(word3);
 
     while (true) {
+
+      out.println(words);
       firstCard = scanner.nextInt();
-      secondCard = scanner.nextInt();
+
+      if(sName == null) {
+        secondCard = random.nextInt(8);
+      } else {
+        secondCard = scanner.nextInt();
+        out.println("Computer will play with card " + secondCard);
+      }
 
       if (controller.loadPlayerCard(firstCard, secondCard)){
         playerSettings(controller, fName, sName);
-        return;
+        break;
       } else {
         out.println(warning);
         out.println(word3);
       }
     }
 
-
+    controller.getGameBoard().printBoard();
 
 
     int[][] arr2 = {
@@ -143,11 +156,6 @@ public class connectMain {
     boolean hasWinner = controller.getGameBoard().checkWinner(5);
     controller.getGameBoard().printBoard();
     out.println(hasWinner);
-
-    for (Player px : controller.getPlayers()) {
-      px.setPlayerScore(5);
-      out.println(px);
-    }
 
   }
 }
