@@ -44,10 +44,10 @@ public class connectMain {
      return 2;
     }
     if (selection == 1) {
-      out.println("\tYou will play with another human\n");
+      out.println("\t\tYou will play with another human\n");
       val = 1;
     } else {
-      out.println("Invalid selection.\n");
+      out.println("\t\tInvalid selection.\n");
       out.println(startGame());
     }
     return val;
@@ -68,7 +68,7 @@ public class connectMain {
     controller.loadGame(); // REMOVE LATER USE DEFAULT TODO
 
     val = sName == null? "Computer".toUpperCase() : sName.toUpperCase();
-    words3 = fName.toUpperCase() +
+    words3 = "\t\t" +fName.toUpperCase() +
             "  VS  "+ val;
 
     out.println("\n"+words3);
@@ -77,15 +77,15 @@ public class connectMain {
   public static void main(String[] args) {
     Controller controller = new Controller();
 
-    out.println(gameIntro());
+    out.println(gameIntro());  // PART 1 TODO PART_ONE
     out.println(startGame());
 
     String words, word2, word3,  fName = "",
             sName = "", warning = "";
-    words = "Player 1 Enter Your name: ";
-    word2 = "Player 2 Enter Your name: ";
+    words = "\tPlayer 1 Enter Your name: ";
+    word2 = "\tPlayer 1 Enter Your name: ";
 
-    int selection = scanner.nextInt();
+    int selection = scanner.nextInt(); //  TODO PART 2
     scanner.nextLine();
 
     selection = playerSelection(selection);
@@ -102,49 +102,37 @@ public class connectMain {
       out.println(startGame());
     }
 
-    playerSettings(controller, fName, sName);
-
-//    switch (selection) {
-//      case 1 -> {
-//        out.println(word2);
-//        sName = scanner.next();
-//      }
-//      case 2 -> {
-//        sName = null; // You might want to handle this differently based on your logic
-//      }
-//      default -> {
-//        out.println(startGame());
-//      }
-//    }
+    playerSettings(controller, fName, sName); // TODO PART 3
 
     int firstCard, secondCard;
   //   words = "LOADING... \n\nChoose your card number : "; TODO REMOVE
     word3 = """
-    \n--> SELECT any number from 1 - 9 (inclusively)
+    \n\t\t--> SELECT any number from 1 - 9 (inclusively)
           as your disc(player card)""";
     warning = "Please only enter valid unique numbers as play card";
-    words = "CHOOSE CARDS :";
+    words = "\n\t\tCHOOSE CARDS :";
 
     out.println(words);
     out.println(word3);
 
-    words = "Player 1 select your card: ";
+    words = " select your card: ";
+    word2 = " select your card: ";
 
     while (true) {
-
-      out.println(words);
+      out.println("\n\n"+fName + words);
       firstCard = scanner.nextInt();
       scanner.nextLine();
 
       if(sName == null) {
         secondCard = random.nextInt(8);
       } else {
+        out.println("\n\n"+sName + word2);
         secondCard = scanner.nextInt();
-        out.println("Computer will play with card " + secondCard);
       }
 
+
       if (controller.loadPlayerCard(firstCard, secondCard)){
-        playerSettings(controller, fName, sName);
+        out.println("\t\tPreparing game environment... \n\n\n");
         break;
       } else {
         out.println(warning);
@@ -166,7 +154,6 @@ public class connectMain {
 
 
     boolean hasWinner = controller.getGameBoard().checkWinner(5);
-    controller.getGameBoard().printBoard();
     out.println(hasWinner);
 
   }

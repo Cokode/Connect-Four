@@ -14,7 +14,7 @@ public class Controller {
    }
 
   public void loadGame() {
-    System.out.println("Game loading...\n".toUpperCase()); // remember to load game with default
+    System.out.println("\n\n\t\tGame loading...\n".toUpperCase()); // remember to load game with default
     // game board
     // gameBoard = new GameBoard(); REMOVE HIGHLIGHT TODO
     int[][] arr2 = {
@@ -61,11 +61,9 @@ public class Controller {
     return gameBoard;
   }
 
-
   private List<Player> getPlayers() {
     return players;
   }
-
 }
 
 
