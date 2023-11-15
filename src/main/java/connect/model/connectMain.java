@@ -1,7 +1,6 @@
 package connect.model;
 
 import connect.Controller;
-import connect.Player;
 
 import java.util.Random;
 import java.util.Scanner;
@@ -27,7 +26,7 @@ public class connectMain {
   """;
   }
 
-  private static String startGme () {
+  private static String startGame() {
 
     return """
   -->   Only two(2) players can play this game at a time
@@ -39,20 +38,19 @@ public class connectMain {
   }
 
   private static int playerSelection(int selection) {
-    int select = -1;
-
+    int val = 0;
     if(selection == 2) {
-      out.println("great Choice! you will play with a machine\n");
-      select = 2;
+      out.println("\tGreat Choice! you will play with a machine\n");
+     return 2;
     }
     if (selection == 1) {
-      out.println("You will play with another human\n");
-      select = 1;
+      out.println("\tYou will play with another human\n");
+      val = 1;
     } else {
       out.println("Invalid selection.\n");
-      out.println(startGme());
+      out.println(startGame());
     }
-    return select;
+    return val;
   }
 
   /**
@@ -69,7 +67,7 @@ public class connectMain {
     controller.loadPlayers(sName);
     controller.loadGame(); // REMOVE LATER USE DEFAULT TODO
 
-    val = sName == null? "Computer" : sName.toUpperCase();
+    val = sName == null? "Computer".toUpperCase() : sName.toUpperCase();
     words3 = fName.toUpperCase() +
             "  VS  "+ val;
 
@@ -80,7 +78,7 @@ public class connectMain {
     Controller controller = new Controller();
 
     out.println(gameIntro());
-    out.println(startGme());
+    out.println(startGame());
 
     String words, word2, word3,  fName = "",
             sName = "", warning = "";
@@ -90,39 +88,53 @@ public class connectMain {
     int selection = scanner.nextInt();
     scanner.nextLine();
 
-    playerSelection(selection);
+    selection = playerSelection(selection);
 
     out.println(words);
-    switch (selection) {
-      case 1 -> {
-        //out.println(words); REMOVE THIS LINE TODO
-        fName = scanner.nextLine();
+    fName = scanner.nextLine();
 
-        out.println(word2);
-        sName = scanner.nextLine();
-      }
-      case 2 -> {
-        out.println(words);
-        fName = scanner.nextLine();
-        sName = null;
-      }
-      default -> {
-        out.println(startGme());
-      }
+    if ( selection == 2) {
+      sName = null;
+    } else if (selection == 1){
+      out.println(word2);
+      sName = scanner.next();
+    } else {
+      out.println(startGame());
     }
+
+    playerSettings(controller, fName, sName);
+
+//    switch (selection) {
+//      case 1 -> {
+//        out.println(word2);
+//        sName = scanner.next();
+//      }
+//      case 2 -> {
+//        sName = null; // You might want to handle this differently based on your logic
+//      }
+//      default -> {
+//        out.println(startGame());
+//      }
+//    }
 
     int firstCard, secondCard;
   //   words = "LOADING... \n\nChoose your card number : "; TODO REMOVE
-    word3 = "\nnSELECT any number from 1 - 9 (inclusively) as your disc(player card)";
+    word3 = """
+    \n--> SELECT any number from 1 - 9 (inclusively)
+          as your disc(player card)""";
     warning = "Please only enter valid unique numbers as play card";
+    words = "CHOOSE CARDS :";
 
     out.println(words);
     out.println(word3);
+
+    words = "Player 1 select your card: ";
 
     while (true) {
 
       out.println(words);
       firstCard = scanner.nextInt();
+      scanner.nextLine();
 
       if(sName == null) {
         secondCard = random.nextInt(8);
