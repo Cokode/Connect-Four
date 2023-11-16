@@ -3,7 +3,6 @@ package connect.model;
 import connect.Controller;
 import connect.Player;
 
-import java.nio.channels.ScatteringByteChannel;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
@@ -157,38 +156,46 @@ public class connectMain {
         out.println("No winners, gamedboard is filled.");
         break;
       }
+      boolean isValidColumn = true;
 
       switch (i) {
         case 1: {
                 out.println(fName + " make a move");
           int position = scanner.nextInt();
           scanner.nextLine();
-          controller.getGameBoard().addToBoard(position, firstCard);
-          if (controller.getGameBoard().checkWinner(firstCard)) {
-            out.println(fName + " Wins the game ! ");
+
+          if (controller.getGameBoard().addToBoard(position, firstCard)){
+            if (controller.getGameBoard().checkWinnerXAndYAxis(firstCard)) {
+              out.println(fName + " Wins the game ! ");
+              controller.getGameBoard().printBoard();
+              ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
+              out.println(pl.get(0).toString());
+              return;
+            }
+            i++;
             controller.getGameBoard().printBoard();
-            ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
-            out.println(pl.get(0).toString());
-            return;
-          }
-          controller.getGameBoard().printBoard();
-          i++;
+          } else
+            out.println("or this column is filled");
         }
 
         case 2 : {
           out.println(sName + " make a move");
           int position2 = scanner.nextInt();
+
           scanner.nextLine();
-          controller.getGameBoard().addToBoard(position2, secondCard);
-          if (controller.getGameBoard().checkWinner(secondCard)) {
-            out.println(sName + " Wins the game ! ");
+          if (controller.getGameBoard().addToBoard(position2, secondCard)){
+            if (controller.getGameBoard().checkWinnerXAndYAxis(secondCard)) {
+
+              out.println(sName + " Wins the game ! ");
+              controller.getGameBoard().printBoard();
+              ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
+              out.println(pl.get(1).toString());
+              return;
+            }
             controller.getGameBoard().printBoard();
-            ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
-            out.println(pl.get(1).toString());
-            return;
-          }
-          controller.getGameBoard().printBoard();
-          i--;
+            i--;
+          } else
+            out.println("This column is filled");
         }
       }
 
@@ -207,7 +214,7 @@ public class connectMain {
     };
 
 
-    boolean hasWinner = controller.getGameBoard().checkWinner(5);
+    boolean hasWinner = controller.getGameBoard().checkWinnerXAndYAxis(5);
     out.println(hasWinner);
 
   }
