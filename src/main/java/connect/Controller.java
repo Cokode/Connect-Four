@@ -16,17 +16,17 @@ public class Controller {
   public void loadGame() {
     System.out.println("\n\n\t\tGame loading...\n".toUpperCase()); // remember to load game with default
     // game board
-    // gameBoard = new GameBoard(); REMOVE HIGHLIGHT TODO
-    int[][] arr2 = {
-            {0, 0, 5, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 5, 5, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {5, 0, 5, 5, 0, 0, 0},
-            {5, 0, 5, 5, 0, 5, 0},
-    };
-
-    gameBoard = new GameBoard(arr2);
+    gameBoard = new GameBoard();
+//    int[][] arr2 = {
+//            {0, 0, 5, 0, 0, 0, 0},
+//            {0, 0, 0, 0, 0, 0, 0},
+//            {0, 0, 5, 5, 0, 0, 0},
+//            {0, 0, 0, 0, 0, 0, 0},
+//            {5, 0, 5, 5, 0, 0, 0},
+//            {5, 0, 5, 5, 0, 5, 0},
+//    };
+//
+//    gameBoard = new GameBoard(arr2); todo remove
   }
 
   private void loadPlayers(Player player) {

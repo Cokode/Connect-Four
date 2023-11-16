@@ -1,8 +1,10 @@
 package connect.model;
 
 import connect.Controller;
+import connect.Player;
 
 import java.nio.channels.ScatteringByteChannel;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -148,11 +150,53 @@ public class connectMain {
     }
 
     controller.getGameBoard().printBoard();
+    int i = 1;
 
+    while (true) {
+      if (controller.getGameBoard().checkGridIsFilled()) {
+        out.println("No winners, gamedboard is filled.");
+        break;
+      }
+
+      switch (i) {
+        case 1: {
+                out.println(fName + " make a move");
+          int position = scanner.nextInt();
+          scanner.nextLine();
+          controller.getGameBoard().addToBoard(position, firstCard);
+          if (controller.getGameBoard().checkWinner(firstCard)) {
+            out.println(fName + " Wins the game ! ");
+            controller.getGameBoard().printBoard();
+            ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
+            out.println(pl.get(0).toString());
+            return;
+          }
+          controller.getGameBoard().printBoard();
+          i++;
+        }
+
+        case 2 : {
+          out.println(sName + " make a move");
+          int position2 = scanner.nextInt();
+          scanner.nextLine();
+          controller.getGameBoard().addToBoard(position2, secondCard);
+          if (controller.getGameBoard().checkWinner(secondCard)) {
+            out.println(sName + " Wins the game ! ");
+            controller.getGameBoard().printBoard();
+            ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
+            out.println(pl.get(1).toString());
+            return;
+          }
+          controller.getGameBoard().printBoard();
+          i--;
+        }
+      }
+
+    }
     out.println(controller.getPlayers());
 
 
-    
+
     int[][] arr2 = {
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},

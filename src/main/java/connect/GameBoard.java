@@ -38,8 +38,7 @@ public class GameBoard implements  BoardLogicInterface{
         boardTable[i][position] = playerCard;
         return true;
       } else
-        --i;
-      ++position;
+       ++position;
     }
 
     return false;
