@@ -60,6 +60,7 @@ public class Player {
   @Override
   public String toString() {
     return "\n Player Name : " +  name + '\'' +
+            ", Player Card :" + playerCard +
             ", Player Score :" + playerScore +
             ", isHuman : " + isHuman +
             ", isWinner : " + isWinner +

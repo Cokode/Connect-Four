@@ -61,7 +61,7 @@ public class Controller {
     return gameBoard;
   }
 
-  private List<Player> getPlayers() {
+  public List<Player> getPlayers() {
     return players;
   }
 }

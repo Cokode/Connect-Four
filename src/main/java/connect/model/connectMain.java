@@ -2,6 +2,7 @@ package connect.model;
 
 import connect.Controller;
 
+import java.nio.channels.ScatteringByteChannel;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -40,7 +41,7 @@ public class connectMain {
   private static int playerSelection(int selection) {
     int val = 0;
     if(selection == 2) {
-      out.println("\tGreat Choice! you will play with a machine\n");
+      out.println("\t\tGreat Choice! you will play with a machine\n");
      return 2;
     }
     if (selection == 1) {
@@ -82,8 +83,8 @@ public class connectMain {
 
     String words, word2, word3,  fName = "",
             sName = "", warning = "";
-    words = "\tPlayer 1 Enter Your name: ";
-    word2 = "\tPlayer 1 Enter Your name: ";
+    words = "\t\tPlayer 1 Enter Your name: ";
+    word2 = "\t\tPlayer 2 Enter Your name: ";
 
     int selection = scanner.nextInt(); //  TODO PART 2
     scanner.nextLine();
@@ -107,9 +108,9 @@ public class connectMain {
     int firstCard, secondCard;
   //   words = "LOADING... \n\nChoose your card number : "; TODO REMOVE
     word3 = """
-    \n\t\t--> SELECT any number from 1 - 9 (inclusively)
-          as your disc(player card)""";
-    warning = "Please only enter valid unique numbers as play card";
+    \n\t--> SELECT any number from 1 - 9(inclusively)
+          \tas your disc(player card)""";
+    warning = "\t\tPlayers must only enter valid unique numbers as play card";
     words = "\n\t\tCHOOSE CARDS :";
 
     out.println(words);
@@ -119,30 +120,39 @@ public class connectMain {
     word2 = " select your card: ";
 
     while (true) {
-      out.println("\n\n"+fName + words);
-      firstCard = scanner.nextInt();
-      scanner.nextLine();
+      try {
+        out.println("\n\n\t\t" + fName + words);
+        firstCard = scanner.nextInt();
+        scanner.nextLine();
 
-      if(sName == null) {
-        secondCard = random.nextInt(8);
-      } else {
-        out.println("\n\n"+sName + word2);
-        secondCard = scanner.nextInt();
-      }
+        if (sName == null) {
+          secondCard = (random.nextInt(10) + firstCard % 2);
+        } else {
+          out.println("\n\t\t" + sName + word2);
+          secondCard = scanner.nextInt();
+        }
 
-
-      if (controller.loadPlayerCard(firstCard, secondCard)){
-        out.println("\t\tPreparing game environment... \n\n\n");
-        break;
-      } else {
-        out.println(warning);
-        out.println(word3);
+        if (controller.loadPlayerCard(firstCard, secondCard)) {
+          out.println("\t\t...Preparing game environment \n");
+          break;
+        } else {
+          out.println(warning);
+          out.println(word3);
+        }
+      } catch (Exception e ) {
+        scanner.nextLine();
+          out.println("" +
+                  "\t\tMake sure you have not entered incorrect types\n" +
+                  "\t\tonly enter valid numbers from 1 - 9");
       }
     }
 
     controller.getGameBoard().printBoard();
 
+    out.println(controller.getPlayers());
 
+
+    
     int[][] arr2 = {
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
