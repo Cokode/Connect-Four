@@ -165,7 +165,7 @@ public class connectMain {
           scanner.nextLine();
 
           if (controller.getGameBoard().addToBoard(position, firstCard)){
-            if (controller.getGameBoard().checkWinnerXAndYAxis(firstCard)) {
+            if (controller.sorting(firstCard, controller.getGameBoard())) {
               out.println(fName + " Wins the game ! ");
               controller.getGameBoard().printBoard();
               ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
@@ -184,7 +184,7 @@ public class connectMain {
 
           scanner.nextLine();
           if (controller.getGameBoard().addToBoard(position2, secondCard)){
-            if (controller.getGameBoard().checkWinnerXAndYAxis(secondCard)) {
+            if (controller.sorting(secondCard, controller.getGameBoard())) {
 
               out.println(sName + " Wins the game ! ");
               controller.getGameBoard().printBoard();

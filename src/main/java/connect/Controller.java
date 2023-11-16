@@ -57,6 +57,16 @@ public class Controller {
      return false;
   }
 
+  public boolean sorting (int playerCard, GameBoard gameBoard){
+    boolean sortOne = gameBoard.checkWinnerXAndYAxis(playerCard);
+    boolean sortTwo = gameBoard.sortLeftDiagonalFirst(playerCard);
+    boolean sortThree =gameBoard.sortLeftDiagonalSecond(playerCard);
+    boolean sortFour =gameBoard.sortRightDiagonalFirst(playerCard);
+    boolean sortFive = gameBoard.sortRightDiagonalSecond(playerCard);
+
+    return sortOne || sortTwo || sortThree || sortFour || sortFive;
+  }
+
   public GameBoard getGameBoard() {
     return gameBoard;
   }

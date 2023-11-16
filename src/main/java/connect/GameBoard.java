@@ -64,7 +64,7 @@ public class GameBoard implements  BoardLogicInterface{
     sum = 0;
 
     for(int i = 0; i < boardTable[0].length; ++i) {
-      for(int k = boardTable.length-1; k > 0; --k) {
+      for(int k = boardTable.length-1; k >= 0; --k) {
         sum += boardTable[k][i] == playerCard ?
                 playerCard : (-1) * sum;
         if (sum == value) return true;
@@ -74,25 +74,67 @@ public class GameBoard implements  BoardLogicInterface{
     return false;
   }
 
-  @Override
-  public boolean checkForWinnerDiagonally(int playerCard) {
-    int movingIndex = 0, sum = 0, value = (playerCard * 4);
-    for(int i = boardTable.length-4; i >= 0; --i) {
-      for (int j = i; j < boardTable.length-1; ++j) {
-        int check = boardTable[j][movingIndex++] ==
+  public boolean sortLeftDiagonalSecond(int playerCard ) {
+    int movingIndex,sum = 0, value = (playerCard * 4);
+
+    for(int i = 1; i < boardTable[0].length; ++i) {
+      movingIndex = i;
+      for (int j = 0; j < boardTable.length && movingIndex <= boardTable[0].length-1; ++j) {
+        int check = boardTable[j][movingIndex] ==
                 playerCard ? playerCard : (-1) * sum;
         sum += check;
+        movingIndex += 1;
         if (sum == value) return true;
       }
     }
 
+    return false;
+  }
 
-    for(int i = 1; i <= boardTable[0].length-4; ++i) {
-      movingIndex = i;
-      for(int j = 0; j < boardTable.length-1; ++j) {
-        int check = boardTable[j][movingIndex++] ==
+  public boolean sortRightDiagonalFirst(int playerCard) {
+    int movingIndex = boardTable[0].length - 1, sum = 0, value = (playerCard*4);
+
+    for(int i = boardTable.length-1; i >= 0; --i) {
+      for (int j = i; j >= 0 && movingIndex >= 0; --j) {
+        int check = boardTable[j][movingIndex] ==
                 playerCard ? playerCard : (-1) * sum;
         sum += check;
+        movingIndex -= 1;
+        if (sum == value) return true;
+      }
+      movingIndex = boardTable[0].length-1;
+    }
+
+    return false;
+  }
+
+  public boolean sortRightDiagonalSecond(int playerCard) {
+    int movingIndex, sum = 0, value = (playerCard*4);
+
+    for(int i = boardTable.length-1; i >= 0; --i) {
+      movingIndex = 0;
+      for (int j = i; j >= 0 && movingIndex <= boardTable[0].length-1; --j) {
+        int check = boardTable[j][movingIndex] ==
+                playerCard ? playerCard : (-1) * sum;
+        sum += check;
+        movingIndex += 1;
+        if (sum == value) return true;
+      }
+    }
+
+    return false;
+  }
+
+  @Override
+  public boolean sortLeftDiagonalFirst(int playerCard) {
+    int movingIndex, sum = 0, value = (playerCard * 4);
+    for(int i = boardTable.length-4; i >= 0; --i) {
+      movingIndex = 0;
+      for (int j = i; j < boardTable.length; ++j) {
+        int check = boardTable[j][movingIndex] ==
+                playerCard ? playerCard : (-1) * sum;
+        sum += check;
+        movingIndex += 1;
         if (sum == value) return true;
       }
     }
