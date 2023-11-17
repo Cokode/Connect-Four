@@ -4,6 +4,7 @@ import connect.Controller;
 import connect.Player;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -39,20 +40,40 @@ public class connectMain {
   """;
   }
 
-  private static int playerSelection(int selection) {
-    int val = 0;
-    if(selection == 2) {
-      out.println("\t\tGreat Choice! you will play with a machine\n");
-     return 2;
+  private static int playerSelection() {
+    int number, value = 0;
+    String reIntro = """
+  -->
+        Press ( 1 ) to play with another human.
+        Press ( 2 ) to play with a machine.
+  """;
+
+    boolean isValid = false;
+
+    while (!isValid) {
+      out.println("Enter an integer:");
+      if (scanner.hasNextInt()) {
+        number = scanner.nextInt();
+
+        if(number == 2) {
+          out.println("\t\tGreat Choice! you will play with a machine\n");
+          value = 2;
+          isValid = true;
+        } else if (number == 1) {
+          out.println("\t\tYou will play with another human\n");
+         value = 1;
+         isValid = true;
+        } else {
+          out.println(reIntro);
+        }
+      } else {
+        out.println("Invalid input. Please enter an integer.");
+        scanner.next(); // Discard invalid input
+      }
     }
-    if (selection == 1) {
-      out.println("\t\tYou will play with another human\n");
-      val = 1;
-    } else {
-      out.println("\t\tInvalid selection.\n");
-      out.println(startGame());
-    }
-    return val;
+
+  scanner.nextLine();
+    return value;
   }
 
   /**
@@ -85,10 +106,8 @@ public class connectMain {
     words = "\t\tPlayer 1 Enter Your name: ";
     word2 = "\t\tPlayer 2 Enter Your name: ";
 
-    int selection = scanner.nextInt();
-    scanner.nextLine();
 
-    selection = playerSelection(selection);
+    int selection = playerSelection();
 
     out.println(words);
     fName = scanner.nextLine();
@@ -97,9 +116,7 @@ public class connectMain {
       sName = null;
     } else if (selection == 1){
       out.println(word2);
-      sName = scanner.next();
-    } else {
-      out.println(startGame());
+      sName = scanner.nextLine();
     }
 
     playerSettings(controller, fName, sName);

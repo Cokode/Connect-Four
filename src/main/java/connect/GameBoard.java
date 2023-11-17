@@ -96,10 +96,10 @@ public class GameBoard implements  BoardLogicInterface{
 
     for(int i = boardTable.length-1; i >= 0; --i) {
       for (int j = i; j >= 0 && movingIndex >= 0; --j) {
-        int check = boardTable[j][movingIndex] ==
+        int check = boardTable[j][movingIndex--] ==
                 playerCard ? playerCard : (-1) * sum;
         sum += check;
-        movingIndex -= 1;
+//        movingIndex -= 1; // Todo replaced with line 134 movingIndex--
         if (sum == value) return true;
       }
       movingIndex = boardTable[0].length-1;
@@ -114,10 +114,10 @@ public class GameBoard implements  BoardLogicInterface{
     for(int i = boardTable.length-1; i >= 0; --i) {
       movingIndex = 0;
       for (int j = i; j >= 0 && movingIndex <= boardTable[0].length-1; --j) {
-        int check = boardTable[j][movingIndex] ==
+        int check = boardTable[j][movingIndex++] ==
                 playerCard ? playerCard : (-1) * sum;
         sum += check;
-        movingIndex += 1;
+//        movingIndex += 1; // Todo replaced with line 134 movingIndex++
         if (sum == value) return true;
       }
     }
@@ -131,10 +131,10 @@ public class GameBoard implements  BoardLogicInterface{
     for(int i = boardTable.length-4; i >= 0; --i) {
       movingIndex = 0;
       for (int j = i; j < boardTable.length; ++j) {
-        int check = boardTable[j][movingIndex] ==
+        int check = boardTable[j][movingIndex++] ==
                 playerCard ? playerCard : (-1) * sum;
         sum += check;
-        movingIndex += 1;
+//        movingIndex += 1; Todo replaced with line 134 movingIndex++
         if (sum == value) return true;
       }
     }
