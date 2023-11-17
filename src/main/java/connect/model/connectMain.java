@@ -106,7 +106,6 @@ public class connectMain {
     words = "\t\tPlayer 1 Enter Your name: ";
     word2 = "\t\tPlayer 2 Enter Your name: ";
 
-
     int selection = playerSelection();
 
     out.println(words);
@@ -170,7 +169,9 @@ public class connectMain {
   }
 
   public static void playGame (Controller controller) {
-    int i = 1;
+    Random random = new Random();
+
+    int i = 1, position = 0;
 
     String fName = controller.getPlayers().get(0).getName();
     String sName = controller.getPlayers().get(1).getName();
@@ -183,43 +184,72 @@ public class connectMain {
         out.println("No winners, game board is filled.");
         break;
       }
-      boolean isValidColumn = true;
 
       switch (i) {
-        case 1: {
+        case 1 -> {
           out.println(fName + " make a move");
-          int position = scanner.nextInt();
-          scanner.nextLine();
+          if (scanner.hasNextInt()) {
+            position = scanner.nextInt();
 
-          if (controller.getGameBoard().addToBoard(position, firstCard)){
-            if (controller.sorting(firstCard, controller.getGameBoard())) {
-              out.println(fName + " Wins the game ! ");
+            scanner.nextLine();
+            if (controller.getGameBoard().addToBoard(position, firstCard)) {
+              if (controller.sorting(firstCard, controller.getGameBoard())) {
+                out.println(fName + " Wins the game ! ");
+                controller.getGameBoard().printBoard();
+                out.println(controller.getPlayers().get(0));
+                return;
+              }
+              i = sName.equalsIgnoreCase("computer") ? 3 : 2;
               controller.getGameBoard().printBoard();
-              out.println( controller.getPlayers().get(0));
-              return;
-            }
-            i++;
-            controller.getGameBoard().printBoard();
-          } else
-            out.println("This column is filled");
+            } else
+              out.println("\t\tThis column is filled");
+          } else {
+            i -= 1;
+            out.println("\t\tonly enter integers from 1 - 7");
+            scanner.next();
+          }
         }
-
-        case 2 : {
+        case 2 -> {
           out.println(sName + " make a move");
-          int position2 = scanner.nextInt();
 
-          scanner.nextLine();
-          if (controller.getGameBoard().addToBoard(position2, secondCard)){
+          if (scanner.hasNextInt()) {
+            position = scanner.nextInt();
+
+            scanner.nextLine();
+            if (controller.getGameBoard().addToBoard(position, secondCard)) {
+              if (controller.sorting(secondCard, controller.getGameBoard())) {
+                out.println(sName + " Wins the game ! ");
+                controller.getGameBoard().printBoard();
+                out.println(controller.getPlayers().get(1));
+                return;
+              }
+              controller.getGameBoard().printBoard();
+              i--;
+            } else
+              out.println("This column is filled");
+          } else {
+            out.println("\t\tonly enter integers from 1 - 7");
+            scanner.next();
+          }
+        }
+        case 3 -> {
+          out.println(sName + " make a move");
+
+          position = random.nextInt(8);
+          if (position == 0) position++;
+
+          if (controller.getGameBoard().addToBoard(position, secondCard)) {
             if (controller.sorting(secondCard, controller.getGameBoard())) {
               out.println(sName + " Wins the game ! ");
               controller.getGameBoard().printBoard();
-              out.println( controller.getPlayers().get(1));
+              out.println(controller.getPlayers().get(1));
               return;
             }
             controller.getGameBoard().printBoard();
-            i--;
+            i = 1;
           } else
             out.println("This column is filled");
+
         }
       }
     }
