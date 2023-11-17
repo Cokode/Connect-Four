@@ -17,12 +17,12 @@ public class Controller {
     System.out.println("\n\n\t\tGame loading...\n".toUpperCase()); // remember to load game with default
    // gameBoard = new GameBoard(); todo CHANGE THIS
     int[][] arr2 = {
-            {0, 0, 5, 5, 0, 0, 5},
+            {0, 0, 5, 5, 0, 5, 5},
             {0, 0, 0, 0, 5, 5, 0},
-            {0, 5, 5, 5, 5, 0, 0},
-            {0, 0, 5, 5, 0, 0, 5},
-            {5, 0, 0, 0, 0, 0, 0},
-            {5, 5, 5, 0, 5, 5, 0},
+            {0, 0, 5, 5, 5, 0, 0},
+            {0, 0, 5, 5, 5, 0, 5},
+            {5, 0, 0, 0, 0, 5, 0},
+            {5, 5, 5, 0, 5, 5, 5},
     };
 
     gameBoard = new GameBoard(arr2);
@@ -65,6 +65,8 @@ public class Controller {
 
     return sortOne || sortTwo || sortThree || sortFour || sortFive;
   }
+
+
 
   public GameBoard getGameBoard() {
     return gameBoard;

@@ -76,18 +76,16 @@ public class connectMain {
     out.println("\n"+words3);
   }
 
-  public static void main(String[] args) {
-    Controller controller = new Controller();
-
-    out.println(gameIntro());  // PART 1 TODO PART_ONE
+  public static void introAndPlayerNameCollection(Controller controller) {
+    out.println(gameIntro());
     out.println(startGame());
 
-    String words, word2, word3,  fName = "",
-            sName = "", warning = "";
+    String words, word2, fName = "",
+            sName = "";
     words = "\t\tPlayer 1 Enter Your name: ";
     word2 = "\t\tPlayer 2 Enter Your name: ";
 
-    int selection = scanner.nextInt(); //  TODO PART 2
+    int selection = scanner.nextInt();
     scanner.nextLine();
 
     selection = playerSelection(selection);
@@ -104,10 +102,15 @@ public class connectMain {
       out.println(startGame());
     }
 
-    playerSettings(controller, fName, sName); // TODO PART 3
+    playerSettings(controller, fName, sName);
+  }
 
+  public static void loadPlayerCards(Controller controller) {
     int firstCard, secondCard;
-  //   words = "LOADING... \n\nChoose your card number : "; TODO REMOVE
+    String word3, warning, words, word2;
+    String fName = controller.getPlayers().get(0).getName();
+    String sName = controller.getPlayers().get(1).getName();
+    //   words = "LOADING... \n\nChoose your card number : "; TODO REMOVE
     word3 = """
     \n\t--> SELECT any number from 1 - 9(inclusively)
           \tas your disc(player card)""";
@@ -126,7 +129,7 @@ public class connectMain {
         firstCard = scanner.nextInt();
         scanner.nextLine();
 
-        if (sName == null) {
+        if (sName == null || sName.equalsIgnoreCase("Computer")) {
           secondCard = (random.nextInt(10) + firstCard % 2);
         } else {
           out.println("\n\t\t" + sName + word2);
@@ -142,33 +145,32 @@ public class connectMain {
         }
       } catch (Exception e ) {
         scanner.nextLine();
-          out.println("" +
-                  "\t\tMake sure you have not entered incorrect types\n" +
-                  "\t\tonly enter valid numbers from 1 - 9");
+        out.println("" +
+                "\t\tMake sure you have not entered incorrect types\n" +
+                "\t\tonly enter valid numbers from 1 - 9");
       }
     }
+  }
 
-    controller.getGameBoard().printBoard();
+  public static void playGame (Controller controller) {
     int i = 1;
 
-    if(controller.sorting(5, controller.getGameBoard())) {
-      out.println("Winnerrrr!");
-      return;
-    } {
-      out.println("ohhh you failed");
-      //return;
-    }
+    String fName = controller.getPlayers().get(0).getName();
+    String sName = controller.getPlayers().get(1).getName();
+
+    int firstCard = controller.getPlayers().get(0).getPlayerCard();
+    int secondCard = controller.getPlayers().get(1).getPlayerCard();
 
     while (true) {
       if (controller.getGameBoard().checkGridIsFilled()) {
-        out.println("No winners, gamedboard is filled.");
+        out.println("No winners, game board is filled.");
         break;
       }
       boolean isValidColumn = true;
 
       switch (i) {
         case 1: {
-                out.println(fName + " make a move");
+          out.println(fName + " make a move");
           int position = scanner.nextInt();
           scanner.nextLine();
 
@@ -176,14 +178,13 @@ public class connectMain {
             if (controller.sorting(firstCard, controller.getGameBoard())) {
               out.println(fName + " Wins the game ! ");
               controller.getGameBoard().printBoard();
-              ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
-              out.println(pl.get(0).toString());
+              out.println( controller.getPlayers().get(0));
               return;
             }
             i++;
             controller.getGameBoard().printBoard();
           } else
-            out.println("or this column is filled");
+            out.println("This column is filled");
         }
 
         case 2 : {
@@ -193,11 +194,9 @@ public class connectMain {
           scanner.nextLine();
           if (controller.getGameBoard().addToBoard(position2, secondCard)){
             if (controller.sorting(secondCard, controller.getGameBoard())) {
-
               out.println(sName + " Wins the game ! ");
               controller.getGameBoard().printBoard();
-              ArrayList<Player> pl = (ArrayList<Player>) controller.getPlayers();
-              out.println(pl.get(1).toString());
+              out.println( controller.getPlayers().get(1));
               return;
             }
             controller.getGameBoard().printBoard();
@@ -206,24 +205,15 @@ public class connectMain {
             out.println("This column is filled");
         }
       }
-
     }
-    out.println(controller.getPlayers());
+  }
 
+  public static void main(String[] args) {
+    Controller controller = new Controller();
 
-
-    int[][] arr2 = {
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 0, 0, 0, 0},
-            {0, 0, 0, 5, 0, 0, 0},
-            {0, 0, 0, 5, 0, 0, 0},
-            {5, 5, 5, 5, 0, 0, 0},
-            {5, 0, 5, 5, 0, 5, 0},
-    };
-
-
-    boolean hasWinner = controller.getGameBoard().checkWinnerXAndYAxis(5);
-    out.println(hasWinner);
-
+    introAndPlayerNameCollection(controller); // TODO PART 1
+    loadPlayerCards(controller);
+    controller.getGameBoard().printBoard();
+    playGame(controller);
   }
 }
