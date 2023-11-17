@@ -151,6 +151,14 @@ public class connectMain {
     controller.getGameBoard().printBoard();
     int i = 1;
 
+    if(controller.sorting(5, controller.getGameBoard())) {
+      out.println("Winnerrrr!");
+      return;
+    } {
+      out.println("ohhh you failed");
+      //return;
+    }
+
     while (true) {
       if (controller.getGameBoard().checkGridIsFilled()) {
         out.println("No winners, gamedboard is filled.");
