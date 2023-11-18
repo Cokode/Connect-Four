@@ -66,4 +66,8 @@ public class Player {
             ", isWinner : " + isWinner +
             '\n';
   }
+
+  public String displayInfo() {
+    return name + " Won the Game";
+  }
 }

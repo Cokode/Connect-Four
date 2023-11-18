@@ -8,6 +8,7 @@ public class Controller {
 
    private static GameBoard gameBoard;
    private final List<Player> players;
+  private int currentPlayerIndex = 0;
 
    public Controller() {
      players = new ArrayList<>(2);
@@ -103,7 +104,7 @@ public class Controller {
    * @param gameBoard  The GameBoard object representing the game board.
    * @return True if any winning pattern is found for the player's card, false otherwise.
    */
-  public boolean sorting(int playerCard, GameBoard gameBoard) {
+  public boolean sorting(int playerCard) {
     boolean sortOne = gameBoard.checkWinnerXAndYAxis(playerCard);
     boolean sortTwo = gameBoard.sortLeftDiagonalFirst(playerCard);
     boolean sortThree = gameBoard.sortLeftDiagonalSecond(playerCard);
@@ -111,6 +112,10 @@ public class Controller {
     boolean sortFive = gameBoard.sortRightDiagonalSecond(playerCard);
 
     return sortOne || sortTwo || sortThree || sortFour || sortFive;
+  }
+
+  public boolean checkWin(int playerCard) {
+    return sorting(playerCard);
   }
 
 
@@ -122,6 +127,22 @@ public class Controller {
 
   public List<Player> getPlayers() {
     return players;
+  }
+
+  public int getCurrentPlayerIndex() {
+    return currentPlayerIndex;
+  }
+
+  public void switchPlayer() {
+    if(currentPlayerIndex == 2) {
+      currentPlayerIndex = 0;
+    } else if (currentPlayerIndex == 0 && players.get(1).isHuman()) {
+      currentPlayerIndex++;
+    } else if (currentPlayerIndex == 1 && (players.get(1).isHuman())) {
+      currentPlayerIndex--;
+    } else {
+      currentPlayerIndex = 2;
+    }
   }
 }
 
