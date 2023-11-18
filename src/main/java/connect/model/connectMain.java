@@ -1,10 +1,7 @@
 package connect.model;
 
 import connect.Controller;
-import connect.Player;
 
-import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,18 +13,25 @@ public class connectMain {
   static Scanner scanner = new Scanner(in);
   static Random random = new Random();
 
-  private static String gameIntro () {
-
+  /**
+   * Provides the introduction and rules for the CONNECT-FOUR game.
+   * The objective is to connect four discs (numbers) in a row horizontally,
+   * vertically, or diagonally.
+   *
+   * @return A formatted string with the game's introduction and objective.
+   */
+  private static String gameIntro() {
     return """
         \nWelcome to CONNECT-FOUR game
         
-  Objective :
-  -->   The goal of each player is to connect
-        four (4) of their own discs(number) in\040
-        a row, either horizontally, vertically,
-        or diagonally.
-  """;
+        Objective:
+        --> The goal of each player is to connect
+            four (4) of their own discs (numbers) in 
+            a row, either horizontally, vertically,
+            or diagonally.
+        """;
   }
+
 
   private static String startGame() {
 

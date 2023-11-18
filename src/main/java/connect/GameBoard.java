@@ -53,7 +53,7 @@ public class GameBoard implements  BoardLogicInterface{
    */
   @Override
   public boolean addToBoard(int column, int playerCard) {
-    if (column < 1 || column >= boardTable[0].length) {
+    if (column < 1 || column > boardTable[0].length) {
       System.out.println("Column " + column + " is invalid.");
       return false;
     }
@@ -63,6 +63,7 @@ public class GameBoard implements  BoardLogicInterface{
         boardTable[row][column] = playerCard;
         return true;
       }
+      ++column; // todo  remove if does not fix the IOB issue
     }
 
     System.out.println("Column " + column + " is full.");
@@ -229,19 +230,34 @@ public class GameBoard implements  BoardLogicInterface{
     return true;
   }
 
-
+  /**
+   * Prints the current game board to the console.
+   * Displays the column headers and the current state of the board.
+   */
   public void printBoard() {
-    System.out.print("""
-                  A        B        C        D        E        F        G\s
+    System.out.println("      A        B        C        D        E        F        G\n");
 
-            """);
-
-    for (int[] ints : boardTable) {
-      for (int anInt : ints) {
-        System.out.print("   |  "+anInt+" |");
+    for (int[] row : boardTable) {
+      for (int cell : row) {
+        System.out.print("   |  "+cell+" |");
+        //System.out.print(" | " + cell + " |");
       }
       System.out.println("\n");
     }
   }
+
+//  public void printBoard() {
+//    System.out.print("""
+//                  A        B        C        D        E        F        G\s
+//
+//            """);
+//
+//    for (int[] ints : boardTable) {
+//      for (int anInt : ints) {
+//        System.out.print("   |  "+anInt+" |");
+//      }
+//      System.out.println("\n");
+//    }
+//  }
 
 }
