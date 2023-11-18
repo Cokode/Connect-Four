@@ -11,6 +11,3 @@ The game ends in a draw if the grid becomes full without a player achieving a li
 
 ## Game implementations
 This game is implemented using 4 classes and 1 interfaces class 
-
-
-

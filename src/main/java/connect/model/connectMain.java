@@ -102,7 +102,7 @@ public class connectMain {
   public static void playerSettings(Controller controller, String player1Name, String player2Name) {
     controller.loadPlayers(player1Name);
     controller.loadPlayers(player2Name);
-    controller.loadGame(); // TODO: Remove this and use default settings
+    controller.loadGame();
 
     String secondPlayerName = (player2Name == null) ? "Computer" : player2Name;
     String displayNames = "\t\t" + player1Name.toUpperCase() + "  VS  " + secondPlayerName.toUpperCase();

@@ -101,7 +101,6 @@ public class Controller {
    * Attempts to sort and check for winning patterns for a player's card in the game board.
    *
    * @param playerCard The integer value representing the player's card.
-   * @param gameBoard  The GameBoard object representing the game board.
    * @return True if any winning pattern is found for the player's card, false otherwise.
    */
   public boolean sorting(int playerCard) {
@@ -117,9 +116,6 @@ public class Controller {
   public boolean checkWin(int playerCard) {
     return sorting(playerCard);
   }
-
-
-
 
   public GameBoard getGameBoard() {
     return gameBoard;
