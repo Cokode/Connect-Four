@@ -1,6 +1,5 @@
 package connect;
 import connect.model.BoardLogicInterface;
-import java.util.Arrays;
 
 public class GameBoard implements  BoardLogicInterface{
   private final int[][] boardTable;
@@ -245,19 +244,5 @@ public class GameBoard implements  BoardLogicInterface{
       System.out.println("\n");
     }
   }
-
-//  public void printBoard() {
-//    System.out.print("""
-//                  A        B        C        D        E        F        G\s
-//
-//            """);
-//
-//    for (int[] ints : boardTable) {
-//      for (int anInt : ints) {
-//        System.out.print("   |  "+anInt+" |");
-//      }
-//      System.out.println("\n");
-//    }
-//  }
 
 }

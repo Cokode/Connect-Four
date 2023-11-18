@@ -13,7 +13,6 @@ import static java.lang.System.out;
 public class connectMain {
 
   static Scanner scanner = new Scanner(in);
-  static Random random = new Random();
 
   /**
    * Provides the introduction and rules for the CONNECT-FOUR game.
@@ -28,7 +27,7 @@ public class connectMain {
         
         Objective:
         --> The goal of each player is to connect
-            four (4) of their own discs (numbers) in 
+            four (4) of their own discs (numbers) in
             a row, either horizontally, vertically,
             or diagonally.
         """;
@@ -125,7 +124,7 @@ public class connectMain {
     // Define prompt messages and initialize player names
     String player1Prompt = "\t\tPlayer 1, enter your name: ";
     String player2Prompt = "\t\tPlayer 2, enter your name: ";
-    String playerName1 = "";
+    String playerName1;
     String playerName2 = null;
 
     // Determine player types and collect names accordingly
@@ -197,95 +196,11 @@ public class connectMain {
     //scanner.close(); todo: may be uncommented if does not trow and error.
   }
 
-
-//  public static void playGame (Controller controller) {
-//    Random random = new Random();
-//
-//    int i = 1, position = 0;
-//
-//    String fName = controller.getPlayers().get(0).getName();
-//    String sName = controller.getPlayers().get(1).getName();
-//
-//    int firstCard = controller.getPlayers().get(0).getPlayerCard();
-//    int secondCard = controller.getPlayers().get(1).getPlayerCard();
-//
-//    while (true) {
-//      if (controller.getGameBoard().checkGridIsFilled()) {
-//        out.println("No winners, game board is filled.");
-//        break;
-//      }
-//
-//      switch (i) {
-//        case 1 -> {
-//          out.println(fName + " make a move");
-//          if (scanner.hasNextInt()) {
-//            position = scanner.nextInt();
-//
-//            scanner.nextLine();
-//            if (controller.getGameBoard().addToBoard(position, firstCard)) {
-//              if (controller.sorting(firstCard)) {
-//                out.println(fName + " Wins the game ! ");
-//                controller.getGameBoard().printBoard();
-//                out.println(controller.getPlayers().get(0));
-//                return;
-//              }
-//              i = sName.equalsIgnoreCase("computer") ? 3 : 2;
-//              controller.getGameBoard().printBoard();
-//            } else
-//              out.println("\t\tThis column is filled");
-//          } else {
-//            i -= 1;
-//            out.println("\t\tonly enter integers from 1 - 7");
-//            scanner.next();
-//          }
-//        }
-//        case 2 -> {
-//          out.println(sName + " make a move");
-//
-//          if (scanner.hasNextInt()) {
-//            position = scanner.nextInt();
-//
-//            scanner.nextLine();
-//            if (controller.getGameBoard().addToBoard(position, secondCard)) {
-//              if (controller.sorting(secondCard)) {
-//                out.println(sName + " Wins the game ! ");
-//                controller.getGameBoard().printBoard();
-//                out.println(controller.getPlayers().get(1));
-//                return;
-//              }
-//              controller.getGameBoard().printBoard();
-//              i--;
-//            } else
-//              out.println("This column is filled");
-//          } else {
-//            out.println("\t\tonly enter integers from 1 - 7");
-//            scanner.next();
-//          }
-//        }
-//        case 3 -> {
-//          out.println(sName + " make a move");
-//
-//          position = random.nextInt(8);
-//          if (position == 0) position++;
-//
-//          if (controller.getGameBoard().addToBoard(position, secondCard)) {
-//            if (controller.sorting(secondCard, controller.getGameBoard())) {
-//              out.println(sName + " Wins the game ! ");
-//              controller.getGameBoard().printBoard();
-//              out.println(controller.getPlayers().get(1));
-//              return;
-//            }
-//            controller.getGameBoard().printBoard();
-//            i = 1;
-//          } else
-//            out.println("This column is filled");
-//
-//        }
-//      }
-//    }
-//  }
-
-
+    /**
+     * Simulates the gameplay of a specific game.
+     *
+     * @param controller The controller managing the game.
+     */
     public static void playGame(Controller controller) {
       Scanner scanner = new Scanner(System.in);
       Random random = new Random();
@@ -331,21 +246,18 @@ public class connectMain {
       scanner.close();
     }
 
-    private static void playMove(String name, Scanner scanner, int card, Controller controller) {
-      System.out.println(name + " make a move");
-      int position = getPosition(scanner);
-      if (position != -1) {
-        if (controller.getGameBoard().addToBoard(position, card)) {
-          controller.getGameBoard().printBoard();
-          controller.switchPlayer();
-        } else {
-          System.out.println("This column is filled");
-        }
-      }
-    }
-
-    private static void playMove(String name, int card, Controller controller, int position) {
-      System.out.println(name + " make a move");
+/**
+ * Plays a move for a player in the game.
+ *
+ * @param name       The name of the player making the move.
+ * @param scanner    The Scanner object to capture user input.
+ * @param card       The card (representing the player) to be placed on the board.
+ * @param controller The controller managing the game.
+ */
+  private static void playMove(String name, Scanner scanner, int card, Controller controller) {
+    System.out.println(name + " make a move");
+    int position = getPosition(scanner);
+    if (position != -1) {
       if (controller.getGameBoard().addToBoard(position, card)) {
         controller.getGameBoard().printBoard();
         controller.switchPlayer();
@@ -353,35 +265,80 @@ public class connectMain {
         System.out.println("This column is filled");
       }
     }
+  }
 
-    private static int getPosition(Scanner scanner) {
-      if (scanner.hasNextInt()) {
-        int position = scanner.nextInt();
-        scanner.nextLine();
-        if (position >= 1 && position <= 7) {
-          return position;
-        } else {
-          System.out.println("\t\tOnly enter integers from 1 - 7");
-        }
+/**
+ * Plays a move for a player in the game.
+ *
+ * @param name       The name of the player making the move.
+ * @param card       The card (representing the player) to be placed on the board.
+ * @param controller The controller managing the game.
+ */
+  private static void playMove(String name, int card, Controller controller, int position) {
+    System.out.println(name + " make a move");
+    if (controller.getGameBoard().addToBoard(position, card)) {
+      controller.getGameBoard().printBoard();
+      controller.switchPlayer();
+    } else {
+      System.out.println("This column is filled");
+    }
+  }
+
+  /**
+   * Reads and validates user input from the scanner to obtain a position between 1 and 7.
+   * If the input is invalid or out of range, it prompts the user to enter a valid position.
+   *
+   * @param scanner The Scanner object used for input.
+   * @return An integer representing the validated position (between 1 and 7), or -1 if the input is invalid.
+   */
+  private static int getPosition(Scanner scanner) {
+    if (scanner.hasNextInt()) {
+      int position = scanner.nextInt();
+      scanner.nextLine();
+      if (position >= 1 && position <= 7) {
+        return position;
       } else {
-        scanner.next(); // clear invalid input
         System.out.println("\t\tOnly enter integers from 1 - 7");
       }
-      return -1;
+    } else {
+      scanner.next(); // clear invalid input
+      System.out.println("\t\tOnly enter integers from 1 - 7");
     }
+    return -1;
+  }
 
-    private static void announceWinner(String name, Player player) {
-      System.out.println(name + " Wins the game! ");
-      out.println(player.displayInfo());
-    }
+  /**
+   * Announces the winner of the game and displays the player's information.
+   *
+   * @param name   The name of the winning player.
+   * @param player The Player object representing the winning player.
+   */
+  private static void announceWinner(String name, Player player) {
+    System.out.println(name + " Wins the game! ");
+    out.println(player.displayInfo());
+  }
 
 
+  /**
+   * The entry point for starting the game application.
+   * Initializes the controller, collects player names, loads player cards, and starts the game.
+   *
+   * @param args The command-line arguments passed to the program (not used in this application).
+   */
   public static void main(String[] args) {
     Controller controller = new Controller();
 
-    introAndPlayerNameCollection(controller); // TODO PART 1
+    // Collect player names
+    introAndPlayerNameCollection(controller);
+
+    // Load player cards
     loadPlayerCards(controller);
+
+    // Print initial game board
     controller.getGameBoard().printBoard();
+
+    // Start the game
     playGame(controller);
   }
+
 }
