@@ -275,7 +275,7 @@ public class connectMain {
  * @param controller The controller managing the game.
  */
   private static void playMove(String name, int card, Controller controller, int position) {
-    System.out.println(name + " make a move");
+    System.out.println(name + " made a move");
     if (controller.getGameBoard().addToBoard(position, card)) {
       controller.getGameBoard().printBoard();
       controller.switchPlayer();
