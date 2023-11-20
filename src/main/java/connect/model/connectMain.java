@@ -298,11 +298,11 @@ public class connectMain {
       if (position >= 1 && position <= 7) {
         return position;
       } else {
-        System.out.println("\t\tOnly enter integers from 1 - 7");
+        System.out.println("\t\tOnly enter integers from 1 - 7 representing column A - G");
       }
     } else {
       scanner.next(); // clear invalid input
-      System.out.println("\t\tOnly enter integers from 1 - 7");
+      System.out.println("\t\tOnly enter integers from 1 - 7  representing column A - G");
     }
     return -1;
   }
