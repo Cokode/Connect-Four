@@ -24,6 +24,8 @@ public class connectMain {
   private static String gameIntro() {
     return """
         \nWelcome to CONNECT-FOUR game
+        Author: Collins Chinedu Amalimeh
+        
         
         Objective:
         --> The goal of each player is to connect
