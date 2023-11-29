@@ -47,13 +47,13 @@ public class ControllerTest {
     int[][] customArray = {
             {0, 0, 5, 5, 0, 5, 5},
             {0, 0, 0, 0, 5, 5, 0},
-            {0, 0, 5, 5, 5, 0, 0},
-            {0, 0, 5, 5, 5, 0, 5},
-            {5, 0, 0, 0, 0, 5, 0},
-            {5, 5, 5, 0, 5, 5, 5},
+            {5, 0, 5, 5, 5, 0, 0},
+            {0, 5, 5, 5, 5, 0, 5},
+            {5, 0, 5, 0, 0, 5, 0},
+            {5, 5, 5, 5, 5, 5, 5},
     };
     gameBoard = new GameBoard(customArray);
-    boolean actual = gameBoard.sortLeftDiagonalSecond(5);
+    boolean actual = gameBoard.sortLeftDiagonalFirst(5);
     boolean expected = true;
 
     assert (expected == actual);
