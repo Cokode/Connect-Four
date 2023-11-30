@@ -39,7 +39,7 @@ public class Controller {
 
   private void loadPlayers(Player player) {
     assert player != null;
-     players.add(player);
+         players.add(player);
   }
 
   /**

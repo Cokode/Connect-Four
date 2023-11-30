@@ -12,13 +12,13 @@ public class ControllerTest {
             {0, 0, 5, 5, 0, 5, 5},
             {0, 0, 0, 0, 5, 5, 0},
             {0, 0, 5, 5, 5, 0, 0},
-            {0, 0, 5, 5, 5, 0, 5},
+            {0, 0, 5, 5, 5, 5, 5},
             {5, 0, 0, 0, 0, 5, 0},
             {5, 5, 5, 0, 5, 5, 5},
     };
     gameBoard = new GameBoard(customArray);
     boolean actual = gameBoard.checkWinnerXAndYAxis(5);
-    boolean expected = false;
+    boolean expected = true ;
 
     assert (expected == actual);
   }
@@ -59,5 +59,40 @@ public class ControllerTest {
     assert (expected == actual);
   }
 
+  @Test
+  public void testCheckWin4 () {
+
+    int[][] customArray = {
+            {0, 0, 7, 0, 0, 0, 0},
+            {0, 0, 0, 7, 0, 0, 0},
+            {5, 0, 0, 0, 7, 0, 0},
+            {0, 0, 0, 0, 0, 7, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+    };
+    gameBoard = new GameBoard(customArray);
+    boolean actual = gameBoard.sortRightDiagonalFirst(7);
+    boolean expected = true;
+
+    assert (expected == actual);
+  }
+
+  @Test
+  public void testCheckWin5 () {
+
+    int[][] customArray = {
+            {0, 0, 7, 0, 0, 0, 0},
+            {0, 0, 0, 7, 0, 0, 0},
+            {5, 0, 0, 0, 7, 0, 0},
+            {0, 0, 0, 0, 0, 7, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+            {0, 0, 0, 0, 0, 0, 0},
+    };
+    gameBoard = new GameBoard(customArray);
+    boolean actual = gameBoard.sortRightDiagonalSecond(7);
+    boolean expected = false;
+
+    assert (expected == actual);
+  }
 
 }
