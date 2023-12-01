@@ -87,6 +87,8 @@ public class ControllerTest {
             {0, 0, 0, 0, 0, 7, 0},
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
+
+            // space 
     };
     gameBoard = new GameBoard(customArray);
     boolean actual = gameBoard.sortRightDiagonalSecond(7);
