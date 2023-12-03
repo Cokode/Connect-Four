@@ -1,3 +1,4 @@
+import connect.Controller;
 import connect.GameBoard;
 import org.junit.jupiter.api.Test;
 
@@ -88,13 +89,34 @@ public class ControllerTest {
             {0, 0, 0, 0, 0, 0, 0},
             {0, 0, 0, 0, 0, 0, 0},
 
-            // space 
+            // space
     };
     gameBoard = new GameBoard(customArray);
     boolean actual = gameBoard.sortRightDiagonalSecond(7);
     boolean expected = false;
 
     assert (expected == actual);
+  }
+
+
+  /**
+   * Test must return false if both players card are the same
+   * otherwise return true. this way, both players cannot have
+   * the same card (number 1 - 9);
+   */
+  @Test
+  public void testForAddingPlayerCard () {
+    Controller controller = new Controller();
+
+    controller.loadPlayers("Collins"); // added two players
+    controller.loadPlayers("Frank");
+
+    boolean expected = false;
+
+    boolean actual = controller.loadPlayerCard(5, 5);
+    // add player 1 and player 2 cards respectively
+
+    assert (actual == expected);
   }
 
 }
