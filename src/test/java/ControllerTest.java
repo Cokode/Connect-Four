@@ -119,4 +119,19 @@ public class ControllerTest {
     assert (actual == expected);
   }
 
+  @Test
+  public void testForAddingPlayerCard2 () {
+    Controller controller = new Controller();
+
+    controller.loadPlayers("Collins"); // added two players
+    controller.loadPlayers("Frank");
+
+    boolean expected = false;
+
+    boolean actual = controller.loadPlayerCard(5, 5);
+    // add player 1 and player 2 cards respectively
+
+    assert (actual == expected);
+  }
+
 }
